@@ -1,0 +1,10 @@
+<header>
+    <h1  class="masthead-heading m-5 text-center align-middle">ESTANCIAS</h1>
+    <h2 class="m-3 text-center align-middle masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${'Hola' + ' ' +session.usuariosession.alias + '!'}"></h2>
+    <h5 sec:authorize="hasRole('ADMIN')" class="m-3 text-center align-middle" >Usted posee permisos de administrador</h5>
+    <div class="m-3 text-center align-middle">
+        <a th:href="@{/usuario/editar-perfil(id=__${session.usuariosession.id}__)}" th:if="${session.usuariosession != null}"class="btn btn-primary btn-xl rounded-pill m-5">Configura tu perfil</a>
+        <a th:href="@{/admin/dashboard}" sec:authorize="hasRole('ADMIN')" class="btn btn-primary btn-xl rounded-pill m-5">Panel de Configuracion</a>
+        <a class="second col-sm-6 text-center p-3" th:if="${session.usuariosession == null}" href="/login" ><button class="btn btn-primary">Iniciar Sesion</button></a>
+    </div>
+</header>

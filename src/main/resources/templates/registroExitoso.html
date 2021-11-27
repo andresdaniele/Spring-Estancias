@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        <h1 class="masthead-heading mb-0 text-center align-middle">ESTANCIAS</h1>
+
+        <section class="m-3 text-center align-middle ">
+            <div class="p-5 text-center align-middle">
+                <h2 class="display-4" th:text="${titulo}"></h2>
+                <p th:text="${exito}"></p>
+            </div>
+
+
+            <a class="second col-sm-6 text-center p-3" th:if="${session.usuariosession == null}" href="/login" ><button class="btn btn-primary">Iniciar Sesion</button></a>
+        </section>
+
+        <script th:replace="/fragments/boostjs :: script"</script>
+    </body>
+
+</html>

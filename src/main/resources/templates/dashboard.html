@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        <header>
+            <h1  class="masthead-heading m-5 text-center align-middle">ESTANCIAS</h1>
+            <h2 class="m-3 text-center align-middle masthead-subheading mb-0" th:if="${session.usuariosession != null}" th:text="${'Hola' + ' ' +session.usuariosession.alias + '!'}"></h2>
+            <h5 sec:authorize="hasRole('ADMIN')" class="m-3 text-center align-middle" >Usted posee permisos de administrador</h5>
+        </header>
+
+        <h1 class="text-muted display-6 container-fluid p-5">Panel de Configuracion</h2>
+
+            <div th:if="${error}!=null" class="card text-white bg-success mb-3" >
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+
+            <div class="container">
+                <table class="table table-hover text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Alias</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rol</th>    
+                            <th><i class="fas fa-sync-alt"></i></th>
+                            <th scope="col">Estado</th>
+                            <th scope="col"><i class="fas fa-user"></i><i class="fas fa-arrows-alt-h"></i><i class="far fa-user"></i></th>
+                            <th scope="col"><i class="fas fa-user-slash"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="usuario : ${usuarios}">
+
+                        <td scope="row" th:text="${usuario.id}" name="id"></td>
+                        <td th:text="${usuario.alias}" name="alias"></td>
+                        <td th:text="${usuario.email}" name="email"></td>
+                        <td th:text="${usuario.rol}" name="rol"></td>
+                        <td>
+                            <a th:href="@{/admin/cambiar-rol/__${usuario.id}__}"><button type="button" class="btn btn-warning btn-sm">Cambiar Rol</button></a>
+                        </td>
+                        <td class="text-center">
+                            <i th:if="${usuario.fechaBaja == null}" class="fa fa-circle text-success "></i>
+                            <div th:if="${usuario.fechaBaja == null}">Activo</div>
+                            <i th:if="${usuario.fechaAlta == null}" class="fa fa-circle circulo" style="color:red;"></i>
+                            <div th:if="${usuario.fechaAlta == null}">Inactivo</div>
+                        </td>
+                        <td>
+                            <a th:if="${usuario.fechaBaja == null}" th:href="@{/admin/baja/__${usuario.id}__}"><button type="button" class="btn btn-danger btn-sm">Dar de Baja</button></a>
+                            <a th:if="${usuario.fechaAlta == null}" th:href="@{/admin/alta/__${usuario.id}__}"><button type="button" class="btn btn-success btn-sm">Dar de Alta</button></a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/eliminar/__${usuario.id}__}"><button type="button" class="btn btn-outline-danger">Eliminar</button></a>
+                        </td>
+
+
+                    </tbody>          
+                </table>
+                <script th:replace="/fragments/boostjs :: script"</script>
+
+                </body>
+
+                </html>
